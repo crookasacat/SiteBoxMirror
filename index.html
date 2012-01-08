@@ -23,7 +23,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" ></script>
     <script type="text/javascript" src="demo_assets/cmxforms.js" ></script>
     
-    <script src="jquery.SiteBoxMirror.standalone.min.js"></script >
+    <script src="jquery.SiteBoxMirror.js"></script >
     
   </head>
   <body>
@@ -274,11 +274,7 @@ $("#config").text($.fn.SiteBoxMIRROR.GetConfig("object"));</pre>
         My rewritten search extension <a href="search.js">search.js</a> relies upon the original 
         <a href="../lib/util/searchcursor.js">searchcursor.js</a> code. This code finds "Search" with a query of "search" but not "seaRch".
       </p>
-      <h4>Resize is clunky!</h4>
-      <p>
-        The resizing of the editor scroll area has taxed me. Use a max-width on the element that contains the editors and it seems to work!<br />
-        Consider this a work in progress!
-      </p>
+      
       <h4>Non IIS hosts need to change the extension of the search dialog url</h4>
       <p>
         The plugin loads its search dialogue via an ajax post. On my IIS server the extension must be a configured script type so I have used .aspx.
@@ -301,7 +297,7 @@ $("#config").text($.fn.SiteBoxMIRROR.GetConfig("object"));</pre>
       
       <h4>demo css not good in ie8!!</h4>
       <p>
-        Never really using it, I just noticed that the css on pre elements is screwed for ie8. Not sure why but looking into it!
+        The css on pre elements is screwed for ie8. Not sure why and not looking into it!
       </p>
     </div>
     <script type="text/javascript">
@@ -314,9 +310,9 @@ $("#config").text($.fn.SiteBoxMIRROR.GetConfig("object"));</pre>
     <div id="demo" class="box blackBox" style="max-width:1000px">
 <h1 class="blackHeading">SiteBoxMirror Demo</h1> 
 <div>
-  <a href="#uiToggleBtn" class="btn" id="uiToggleBtn">destroy</a>
-  <a href="#set" class="btn" id="setBtn">setcode</a>
-  <a href="#get" class="btn" id="getBtn">getcode</a>
+  <a href="#demo" class="btn" id="uiToggleBtn">destroy</a>
+  <a href="#demo" class="btn" id="setBtn">setcode</a>
+  <a href="#demo" class="btn" id="getBtn">getcode</a>
   
 </div>
 <form id="cmTest" class="cmxform" action="?" method="post" style="width:auto">
@@ -366,6 +362,7 @@ $("#config").text($.fn.SiteBoxMIRROR.GetConfig("object"));</pre>
         $("#p_code4").SiteBoxMIRROR({ mode: "text/x-mysql"});
         $(this).text("destroy");
       }
+      return false;
     });
     //setcode demo button
     $("#setBtn").click(function(){
@@ -373,11 +370,14 @@ $("#config").text($.fn.SiteBoxMIRROR.GetConfig("object"));</pre>
       $("#p_code2").SiteBoxMIRROR("setCode", demosrc.css);
       $("#p_code3").SiteBoxMIRROR("setCode", demosrc.js);
       $("#p_code4").SiteBoxMIRROR("setCode", demosrc.sql); 
+      return false;
+
     });
     //getcode demo button
     $("#getBtn").click(function(){
       var code = $("textarea.cmui").SiteBoxMIRROR("getCode");
       alert(code);
+      return false;
     });
   });
   

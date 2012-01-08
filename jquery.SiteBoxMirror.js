@@ -179,10 +179,12 @@ requires
   //Init 
   function initMIRROR(objToConfig, opts){
 
-    debug("SiteBoxMirror.initMIRROR()" + $(objToConfig).attr("id"));
+    var configObjId = $(objToConfig).attr("id")
+    debug("SiteBoxMirror.initMIRROR()" + configObjId);
     
     var $frame = $("<div></div>");
     $frame.attr("class", "siteBoxMirror-frame");
+    $frame.attr("id", configObjId + "_ui_frame");
     
     var $uibar = $("<div></div>");
     $uibar.attr("class", "siteBoxMirror-uibar");
@@ -197,7 +199,10 @@ requires
       $button.attr("alt", b);
       $button.attr("title", $.fn.SiteBoxMIRROR.buttons[b].title);
       $button.attr("class", "siteBoxMirror-button");
-      $buttonbar.append($button);
+      var $buttonLink = $("<a></a>");
+      $buttonLink.html($button);
+      $buttonLink.attr("href", "#" + configObjId + "_ui_frame");
+      $buttonbar.append($buttonLink);
     }
 
     $uibar.append($buttonbar);
@@ -226,10 +231,10 @@ requires
     
     //set up button clicks
     $uibar.find(".siteBoxMirror-button").each(function(i, button){
-      $(button).click(function(e){
+      $(button).parent().click(function(e){
         //use the function defined in $.fn.SiteBoxMIRROR.buttons.action
         $.fn.SiteBoxMIRROR.buttons[$(button).attr("alt")].action($(button), ed, e);
-        return false;
+        //return false;
       });
     });
     
@@ -256,11 +261,13 @@ requires
       });
     }
     else{
+      
       $frame.find(".CodeMirror-scroll").each(function(i, obj){
-        var width = $frame.parent().width() - 5;
+        //var width = $frame.parent().width() - 5;
         $(obj).removeAttr("style");
-        $(obj).width(width);
+        //$(obj).width(width);
       });
+      
     }
 
     $codeMirror.show();
@@ -333,8 +340,7 @@ requires
 
    
   function mirrorUiToggleFullScreenClick($button, editor, e){
-    var $frame = $button.parent().parent().parent();
-
+    var $frame = $button.parent().parent().parent().parent();
     if($frame.hasClass("fullscreen")){
       $frame.removeClass("fullscreen");
       togglePageVisibility(true);
@@ -347,7 +353,7 @@ requires
       $("body").append($frame);
       setScrollSize($frame, "fullscreen", editor);
     }
-    editor.focus();
+    //editor.focus();
   }
 
 
