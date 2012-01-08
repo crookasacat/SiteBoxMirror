@@ -298,6 +298,11 @@ $("#config").text($.fn.SiteBoxMIRROR.GetConfig("object"));</pre>
          using the dynamic mode (jquery.SiteBoxMirror.js) If you want to use the standard mysql mode with
          jquery.SiteBoxMirror.standalone.min.js you will have to replace the mysql mode in the script itself.
       </p>
+      
+      <h4>demo css not good in ie8!!</h4>
+      <p>
+        Never really using it, I just noticed that the css on pre elements is screwed for ie8. Not sure why but looking into it!
+      </p>
     </div>
     <script type="text/javascript">
         $("pre.docs_htm").SiteBoxMIRROR("highlight", { mode: "text/html" });
@@ -382,9 +387,10 @@ $("#config").text($.fn.SiteBoxMIRROR.GetConfig("object"));</pre>
     css : "",
     js : "",
     sql : ""
-  }
+  };
+
   function initsrc(){
-    $("#p_code1").val( $("#demo").html().trim() );
+    $("#p_code1").val( jQuery.trim($("#demo").html()) );
     $("#htm-src").text($("#p_code1").val());
     $("#p_code2").val( $("#css-src").text() );
     $("#p_code3").val( $("#js-src").text() );
