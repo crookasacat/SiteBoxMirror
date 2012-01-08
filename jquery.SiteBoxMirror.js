@@ -167,7 +167,7 @@ requires
 
   function getFileUrl(fileObj){
      var root = "";
-     if(fileObj.root == "ui"){
+     if(fileObj.root == "sb"){
         root = $.fn.SiteBoxMIRROR.configInfo.pluginRoot;
      }
      else{
@@ -497,28 +497,28 @@ requires
     lineNumbers : true
   };
 
-  $.fn.SiteBoxMIRROR.configInfo = {
-    codeMirrorRoot  : "/CodeMirror2/",
-    pluginRoot      : "/CodeMirror2/ui/",
-    pluginFileName  : { root: "ui", path : "jquery.SiteBoxMirror.js" },
-    pluginSearchUrl : { root: "ui", path : "search.aspx" }
+  $.fn.SiteBoxMIRROR.configInfo = {                  
+    codeMirrorRoot  : "/CodeMirror2/",               //alias to root : cm
+    pluginRoot      : "/CodeMirror2/SiteBoxMirror/", //alias to root : sb
+    pluginFileName  : { root: "sb", path : "jquery.SiteBoxMirror.js" },
+    pluginSearchUrl : { root: "sb", path : "search.aspx" }
   };
          
   $.fn.SiteBoxMIRROR.cssLib = {
-    ui : { root : "ui", path : "ui.css" }
+    ui : { root : "sb", path : "ui.css" }
   };
 
   $.fn.SiteBoxMIRROR.jsLib = {
     codemirror   : { root : "cm", path : "lib/codemirror.js" },
     searchcursor : { root : "cm", path : "lib/util/searchcursor.js" },
-    search       : { root : "ui", path : "search.js" },
+    search       : { root : "sb", path : "search.js" },
     highlight    : { root : "cm", path : "lib/util/runmode.js" },
     css          : { root : "cm", path : "mode/css/css.js" },
     javascript   : { root : "cm", path : "mode/javascript/javascript.js" },
     xml          : { root : "cm", path : "mode/xml/xml.js" },
     htmlmixed    : { root : "cm", path : "mode/htmlmixed/htmlmixed.js" },
     xmlpure      : { root : "cm", path : "mode/xmlpure/xmlpure.js" },
-    mysql        : { root : "ui", path : "mysql/mysql.js" }
+    mysql        : { root : "sb", path : "mysql/mysql.js" }
   };
 
   $.fn.SiteBoxMIRROR.modes = {
@@ -532,7 +532,7 @@ requires
   $.fn.SiteBoxMIRROR.buttons = {
     
     find : {
-      icon   : { root : "ui", path : "find.png" },
+      icon   : { root : "sb", path : "find.png" },
       title  : "find",
       action : function($obj, ed, e){
          mirrorUiFindClick($obj, ed, e);
@@ -540,7 +540,7 @@ requires
     },
 
     indentSelected : {
-      icon   : { root : "ui", path : "script_code.png" },
+      icon   : { root : "sb", path : "script_code.png" },
       title  : "indent selected",
       action : function($obj, ed, e){
          mirrorUiIndentSelectedClick($obj, ed, e);
@@ -548,7 +548,7 @@ requires
     },
 
     indentDocument : {
-      icon   : { root : "ui", path : "script_code_red.png" },
+      icon   : { root : "sb", path : "script_code_red.png" },
       title  : "indent document",
       action : function($obj, ed, e){
          mirrorUiIndentDocumentClick($obj, ed, e);
@@ -556,7 +556,7 @@ requires
     },
 
     fullScreen : {
-      icon   : { root : "ui", path : "monitor_go.png" },
+      icon   : { root : "sb", path : "monitor_go.png" },
       title  : "toggle fullscreen",
       action : function($obj, ed, e){
          mirrorUiToggleFullScreenClick($obj, ed, e);
