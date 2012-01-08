@@ -1,0 +1,125 @@
+/**********************************
+
+Name: cmxform Styles
+
+***********************************/
+form.cmxform{
+        width: 100%;
+        padding : 0px;
+        margin:0px;
+}
+
+form.cmxform legend{
+        padding-left: 0;
+        padding: 5px;
+        font-style: italic;
+        margin-bottom:10px;
+}
+
+/* form.cmxform legend, */
+/* form.cmxform label,*/
+
+
+
+form.cmxform fieldset {
+border : 0px #000000 solid;
+  margin: 0 0 0 0;
+}
+
+form.cmxform fieldset fieldset{
+  background: none;
+}
+
+form.cmxform fieldset p, 
+form.cmxform fieldset fieldset {
+  padding: 0px 10px 5px;
+}
+
+
+
+form.cmxform label.error, 
+label.error {
+  /* remove the next line when you have trouble in IE6 with labels in list */
+  color: red;
+  font-style: italic
+}
+
+div.error { display: none; }
+
+input, 
+textarea, 
+select {
+        border : 1px #cccccc solid;
+}
+
+input:focus, 
+textarea:focus, 
+select:focus { 
+        border: 1px #339933 solid; 
+}
+
+input.error { 
+        border: 1px dotted red; 
+}
+
+form.cmxform .gray * { 
+        color: #cccccc; 
+}
+
+textarea{
+        display : block;
+        width : 99%;
+        /*height:auto;*/
+        /*min-height: 15px;*/
+        /*max-height : 800px;*/
+        /*overflow : auto;*/
+}
+
+.ajaxSelectlink
+{
+    text-decoration:none; 
+    border:none;
+    background-color:#ffffff;
+    padding: 1px;
+    margin: 1px;
+    width:120px;
+}
+
+
+/* the following styles are siteboxCRUD specific system classes for use with cmx form */
+
+form.siteboxCRUD{
+  border : 1px #cccccc solid; 
+  border-radius : 5px;
+}
+form.siteboxCRUD fieldset.CRUD_formControl>legend{
+  float:left;
+}
+form.siteboxCRUD fieldset.CRUD_formControl>div.search_mode,
+form.siteboxCRUD fieldset.CRUD_formControl>div.view_mode,
+form.siteboxCRUD fieldset.CRUD_formControl>div.edit_mode,
+form.siteboxCRUD fieldset.CRUD_formControl>div.form_status{
+  margin : 2px 2px 0 0;
+  float:right
+}
+form.siteboxCRUD fieldset.CRUD_formControl>div.form_status{
+ width:10px;
+ height:10px;
+ overflow:hidden;
+ border-radius : 5px; 
+}
+
+form.siteboxCRUD fieldset.CRUD_formControl>div.form_status>span.form_changed_no{
+  color: #339933;
+  background-color: #339933;
+}
+
+form.siteboxCRUD fieldset.CRUD_formControl>div.form_status>span.form_changed_yes{
+  color: #993333;
+  background-color: #993333;
+}
+
+form.siteboxCRUD textarea{
+ width:auto;
+ display:inline; 
+}

@@ -1,0 +1,171 @@
+/* ------------------------------ begin Reset Styles for all browsers ------------------------------ */
+body, p, blockquote {margin: 0;padding: 0;}
+a img, iframe{border: none;}
+h1, h2, h3, h4, h5, h6 {margin: 0;padding: 0;font-size: 100%;font-weight:bold;}
+ul, li, ol, dl, dt, dd {margin: 0;padding: 0;}
+ul, ol, li {margin-left: 20px;}
+a, a:link {}
+a:visited {}
+a:hover {}
+a:active {}
+form, fieldset {margin: 0;padding: 0;z-index : 100;}
+fieldset { border: 1px solid #000; }
+legend {padding: 0;}
+input, textarea, select, button {margin: 1px; padding: 1px; font-size: inherit; font-family: inherit; }
+select { padding: 0; }
+/*  ------------------------------  end: Reset Styles for all browsers  ------------------------------ */
+
+
+
+
+/*  ------------------------------  site HTML styles ------------------------------ */
+
+html, body {
+  /*no rules*/
+}
+
+body{
+  margin:0 0 0 0;
+  padding:0;
+  color:#666666;
+  font-size : 78%;
+  font-family: verdana, arial, sans-serif; 
+  font-weight: 500;
+  background-position:top left;
+  background-repeat:no-repeat;
+  background-color:#000000; /*#CFD1E0;*/
+}
+h1{
+  margin : 0 0 5px 0;  /*set to a fixed value to ensure Xbrowser compatibility*/
+  padding : 0;
+}
+h2, h3, h4, h5, h6{
+  margin : 10px 0 5px 0;  /*set to a fixed value to ensure Xbrowser compatibility*/
+  padding : 0;
+}
+
+p {
+  padding:0px;
+  margin-bottom:5px;
+  margin-left : 5px;
+}
+
+h1{
+  font-size : 1.5em;
+}
+
+h2{
+  font-size : 1.2em;
+}
+
+h3{
+  font-size : 1.2em;
+}
+
+h4{
+  font-size : 1em;
+}
+
+h5{
+  font-size : 1em;
+}
+
+a{
+  text-decoration : none;
+  color: #666633; 
+  
+}
+
+a:hover{
+  color : #993333;
+}
+
+a:focus{
+ /*outline : 1px #ff0000 solid; */
+}
+
+
+
+pre {
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+button.btn,
+a.btn,
+input.btn{
+  color:#666633; 
+  font-weight: bold; 
+  font-size: 1em;
+  line-height:1.1em;
+  background-color:#eeeeee; 
+  border: 2px #cccccc outset;
+  padding:1px 3px 2px 3px;
+  cursor:pointer;
+  border-radius:5px;
+  
+}
+
+a.btn{
+  display:inline-block;
+  
+}
+
+
+.box
+{
+  margin:5px auto 5px auto;
+  padding:5px;
+  background-color: #ffffff;
+  border-radius : 5px;
+  max-width:1000px
+}
+
+.blackHeading{
+  
+  font-size:1.05em;
+  border-radius : 5px;
+}
+
+.blackHeading {
+  border:1px #000000 solid;
+  background-image:url('black.jpg');
+  background-repeat:repeat-x;
+  color:#ffffff;
+  padding-left:5px;
+  padding-top:4px;
+  height:22px;
+}
+
+.blackHeading a{
+  color:#ffffff;
+}
+
+.blackBox {
+  border:1px #000000 solid;
+  border-radius : 5px;
+}
+
+.docs_htm,
+.docs_js{
+ margin-left : 20px;
+ display : inline-block;
+ background-color : #eeeeee;
+ border-radius : 5px;
+ padding :3px;
+}
+
+.src{
+ display:none;
+}
+
+form.cmxform label{
+ width:auto;
+}
+
+form.cmxform fieldset>div{
+ margin-left:10px;
+}

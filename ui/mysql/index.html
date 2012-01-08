@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+    <title>CodeMirror: MySql mode</title>
+    <link rel="stylesheet" href="../../lib/codemirror.css">
+    <script src="../../lib/codemirror.js"></script>
+    <script src="mysql.js"></script>
+    <link rel="stylesheet" href="../../doc/docs.css">
+    <style>
+        .CodeMirror {border: 2px inset #dee;}
+    </style>
+</head>
+<body>
+<h1>CodeMirror: mySql mode</h1>
+
+<form>
+    <textarea id="code" name="code">
+-- mySQL Code Demo
+/*
+   based on plsql mode, adapted to MySql by Richard Harvey ( http://www.crookasacat.com/ )
+   December 2011
+*/
+#`rh_sp_sys_rh_sys_dia_discussionitemattachment_SEARCH`
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `rh_sp_sys_rh_sys_dia_discussionitemattachment_SEARCH`$$
+CREATE PROCEDURE `rh_sp_sys_rh_sys_dia_discussionitemattachment_SEARCH`(
+  IN SUS_ID VARCHAR(50),
+  IN TEMPLATE_PREFIX VARCHAR(50),
+  IN PAGE_NO INT,
+  IN PAGE_SIZE INT,
+  IN p_sys_dia_id int,
+  IN p_sys_dia_dip_id int,
+  IN p_sys_dia_attachmentUrl varchar(1000),
+  IN p_upLoadCmd varchar(50),
+  IN p_uploadClient varchar(50),
+  IN p_fileKey varchar(50)
+)
+BEGIN
+
+  #rh_sp_sys_rh_sys_dia_discussionitemattachment_SEARCH auto generated :22/01/2011 14:37:51
+  
+  DECLARE str_this_SpName VARCHAR(64);
+  DECLARE int_record_count INT;
+  
+  DECLARE int_page_size INT;
+  DECLARE int_first_page INT;
+  DECLARE int_last_page INT;
+
+  DECLARE str_pager_template_name varchar(500);
+  DECLARE str_result_template_name varchar(500);
+  DECLARE str_empty_template_name varchar(500);
+  DECLARE str_pager_key_name varchar(100);
+
+  DECLARE int_error INT;
+  DECLARE str_error VARCHAR(1000);
+  
+  SET TEMPLATE_PREFIX = COALESCE(CONCAT(TEMPLATE_PREFIX, '_'), '');
+
+  SET str_pager_template_name = CONCAT(TEMPLATE_PREFIX, 'search_result_pager.htm');
+  SET str_result_template_name = CONCAT(TEMPLATE_PREFIX, 'search_results.htm');
+  SET str_empty_template_name = CONCAT(TEMPLATE_PREFIX, 'search_results_empty.htm');
+  SET str_pager_key_name = 'rh_sys_dia_discussionitemattachment_PAGER';
+  SET str_this_SpName = 'rh_sp_sys_rh_sys_dia_discussionitemattachment_SEARCH';
+  CALL `rh_sp_sys_log_sp_call`(str_this_SpName);
+
+  SET int_page_size = COALESCE(PAGE_SIZE, 10);
+  SET int_first_page = 1;
+  SET PAGE_NO = COALESCE(PAGE_NO, 1);
+
+  MAIN_BLOCK:BEGIN
+    
+    IF p_upLoadCmd = 'UPLOAD' THEN
+    
+      IF NOT EXISTS (SELECT * FROM `rh_sys_dip_discussionitempost` WHERE `sys_dip_id` = p_sys_dia_dip_id) THEN
+        SET str_error = CONCAT(
+          'Upload Error :: sys_dip_id[', 
+          CONVERT(COALESCE(p_sys_dia_dip_id, -1), CHAR(10)), 
+          '] supplied with upload hint is invalid'
+        );
+        SELECT 'TAG' AS "xxHINT", str_error;
+        LEAVE MAIN_BLOCK;
+      END IF;
+      
+      CALL `rh_sp_sys_rh_sys_dia_discussionitemattachment_UID`(
+        SUS_ID,
+        'UPLOAD',
+        0,
+        int_error,
+        str_error,
+        p_sys_dia_id,
+        p_sys_dia_dip_id,
+        null,
+        null,
+        'UPLOADIFY',
+        'Filedata' 
+      );
+
+      SELECT 'TAG' AS "xxHINT", 'Upload queued' AS "upload_task_message";
+
+      LEAVE MAIN_BLOCK;      
+    END IF;
+
+    /* BUILD LIST OF PK OF SELECTED RECORDS */
+    DROP TEMPORARY TABLE IF EXISTS `tmp_rh_sys_dia_discussionitemattachment_rows`;
+    CREATE TEMPORARY TABLE `tmp_rh_sys_dia_discussionitemattachment_rows` (
+      `tmp_idx` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      `tmp_id` int NOT NULL
+    )ENGINE=memory;
+    INSERT INTO `tmp_rh_sys_dia_discussionitemattachment_rows`(`tmp_id`)
+    SELECT `sys_dia_id`
+    FROM `rh_sys_dia_discussionitemattachment`
+    WHERE ((p_sys_dia_id IS NULL) OR (`sys_dia_id` = p_sys_dia_id))
+      /** NON TEXT COLUMN SEARCH IF ANY FOLLOW (EXACT MATCH)**/
+      AND ((p_sys_dia_dip_id IS NULL) OR (`sys_dia_dip_id` = p_sys_dia_dip_id))
+
+      /** TEXT COLUMN SEARCH IF ANY FOLLOW (EXACT OR LIKE MATCH)**/
+      AND ((p_sys_dia_attachmentUrl IS NULL) OR (`rh_fn_likeValue`(`sys_dia_attachmentUrl`, p_sys_dia_attachmentUrl) = 'MATCH'))
+
+    ORDER BY
+      `sys_dia_id`;
+
+   SET int_record_count = FOUND_ROWS();
+
+   SELECT 'CONTEXT_ADD' AS "_RS_COMMAND", int_record_count AS "LAYOUT_TOTAL_RECORDS", int_page_size AS "PAGE_SIZE", PAGE_NO AS "PAGE_NO";
+
+   IF int_record_count > 0 THEN
+      IF int_record_count > int_page_size THEN
+         SELECT CEILING(MAX(`tmp_idx`)/int_page_size) INTO int_last_page FROM `tmp_rh_sys_dia_discussionitemattachment_rows`;         
+         IF int_last_page > 15 THEN
+           IF PAGE_NO > 8 THEN
+             SET int_first_page = PAGE_NO - 7;
+           END IF;
+           IF int_last_page > (int_first_page + 14) THEN
+             SET int_last_page = int_first_page + 14;
+           END IF;
+           SET int_first_page =  int_last_page - 14;
+         END IF;
+         
+         CALL `rh_sp_sys_SendFileTemplateHint`(str_this_SpName, 'ROWTEMPLATE', str_pager_template_name, 'REPLACE_AND_REMOVE');
+         SELECT
+            `tmp_idx` AS "page",
+            CASE WHEN PAGE_NO = `tmp_idx` THEN 'class="selected"' ELSE NULL END AS "selected"
+         FROM `tmp_rh_sys_dia_discussionitemattachment_rows`
+         WHERE `tmp_idx` >= int_first_page AND `tmp_idx` <= int_last_page;
+         
+         SELECT 'BUFFER_TO_CONTEXT' AS "xxHINT", str_pager_key_name AS "Key";
+      END IF;
+    END IF;
+
+    IF int_record_count > 0 THEN
+      CALL `rh_sp_sys_SendFileTemplateHint`(str_this_SpName, 'ROWTEMPLATE', str_result_template_name, 'REPLACE_AND_REMOVE');
+      SELECT
+        `sys_dia_id` AS "sys_dia_id",
+        `sys_dia_dip_id` AS "sys_dia_dip_id",
+        `sys_dia_attachmentUrl` AS "ENCODE_sys_dia_attachmentUrl" 
+      FROM `rh_sys_dia_discussionitemattachment`
+      JOIN `tmp_rh_sys_dia_discussionitemattachment_rows` 
+      ON `tmp_id` = `sys_dia_id`
+      WHERE CEILING(`tmp_idx`/int_page_size) = PAGE_NO
+      ORDER BY `tmp_idx`;      
+    ELSE
+      CALL `rh_sp_sys_SendFileTemplateHint`(str_this_SpName, 'ROWTEMPLATE', str_empty_template_name, 'REPLACE_AND_REMOVE');
+      SELECT str_this_SpName AS "SP_NAME", 'rh_sys_dia_discussionitemattachment' AS "TABLE_NAME";
+    END IF;
+
+  END MAIN_BLOCK;
+  DROP TEMPORARY TABLE IF EXISTS `tmp_rh_sys_dia_discussionitemattachment_rows`;
+END $$
+DELIMITER;
+    </textarea>
+</form>
+
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"),{
+                                         lineNumbers: true,
+                                         matchBrackets: true,
+                                         indentUnit: 2,
+                                         mode: "text/x-mysql"
+                                         });
+</script>
+
+<p>
+Simple mode that highlights MySql, does not attempt to indent.
+</p>
+
+<p>
+<strong>MIME type defined:</strong> <code>text/x-mysql</code> (MYSQL code)
+</html>

@@ -1,0 +1,63 @@
+<!doctype html public "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>SiteBoxMirror</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="index, follow" />
+<meta name="description" content="SiteBoxMirror a jQuery wrapper for CodeMirror2" />
+<meta name="keywords" content="CodeMirror CodeMirror2 jQuery plugin" />
+<!-- css -->
+<link type="text/css" rel="styleSheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/overcast/jquery-ui.css" />
+
+<link type="text/css" rel="styleSheet" href="demo_assets/cmxformTemplate.css"  />
+<link type="text/css" rel="styleSheet" href="demo_assets/cmxform.css" />
+<link type="text/css" rel="styleSheet" href="demo_assets/demo_style.css" >
+
+<link type="text/css" rel="stylesheet" href="/CodeMirror2/ui/ui.css" />
+<!-- js -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" >
+</script>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" >
+</script>
+<script type="text/javascript" src="demo_assets/cmxforms.js" >
+</script>
+
+<script src="jquery.SiteBoxMirror.js">
+</script >
+
+</head>
+<body>
+
+<div class="box blackBox">
+  <h1 class="blackHeading">Compression helper for jquery.SiteBoxMirror</h1>
+  <a href="#compress" class="btn" id="compressBtn">Build jquery.SiteBoxMirror.standalone.min.js</a>
+  <h4>Current configuration <a href="jquery.SiteBoxMirror.js">jquery.SiteBoxMirror.js</a></h4>
+  <pre id="config" class="docs_htm"></pre>
+  <form id="compress" method="post" action="" style="display:none">
+    <div>
+      <input type="hidden" name="build_list" value="" />
+    </div>
+  </form>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var files = $.fn.SiteBoxMIRROR.GetSourceList();
+      files = "dependantFiles = {\n\t'" + files.replace(/,/ig, "',\n\t'") + "'\n};";
+      $("#config").text(files);
+      $("#config").SiteBoxMIRROR("highlight", { mode: "text/javascript" });
+      //compress button
+      $("#compressBtn").click(function(){
+       var list = $.fn.SiteBoxMIRROR.GetSourceList();
+       $("#compress input[name='build_list']").val(list);
+       $("#compress").attr("action", "standalone.aspx"); 
+       $("#compress").submit();
+    });
+   });
+  </script>
+
+</div>
+
+</body>
+</html>
+
