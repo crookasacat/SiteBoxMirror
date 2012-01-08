@@ -15,7 +15,7 @@
     <link type="text/css" rel="styleSheet" href="demo_assets/cmxform.css" /> 
     <link type="text/css" rel="styleSheet" href="demo_assets/demo_style.css" >
     
-    <link type="text/css" rel="stylesheet" href="/CodeMirror2/ui/ui.css" /> 
+    <link type="text/css" rel="stylesheet" href="/CodeMirror2/SiteBoxMirror/ui.css" /> 
     
     <!-- js -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" ></script>
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" ></script>
     <script type="text/javascript" src="demo_assets/cmxforms.js" ></script>
     
-    <script src="jquery.SiteBoxMirror.js"></script >
+    <script src="jquery.SiteBoxMirror.standalone.min.js"></script >
     
   </head>
   <body>
@@ -47,33 +47,6 @@
       
       <p>
         See the <a href="#demo">demo</a>.
-      </p>
-      
-      <h2>Known Issues</h2>
-      <h4>Search not case insensitive if query starts with lowercase</h4>
-      <p>
-        My rewritten search extention <a href="search.js">ui/search.js</a> relies upon the original 
-        <a href="../lib/util/searchcursor.js">searchcursor.js</a> code. This code finds "Search" with a query of "search".
-      </p>
-      <h4>Resize is clunky!</h4>
-      <p>
-        The resizing of the editor scroll area has taxed me. Use a max-width on the element that contains the editors and it seems to work!
-      </p>
-      <h4>Non IIS hosts need to change the extention of the dialoug url</h4>
-      <p>
-        The plugin loads its search dialoug via an ajax post. On my IIS server the extension must be a configured script type so I have used .aspx.
-      </p>
-      <p>
-        Non IIS users can rename <a href="search.aspx">ui/search.aspx</a> to somthing more appropriate and supply 
-        the new name via config or at create time. (assuming dynamic setup) <br />
-        Alternatively you can edit the property <b>$.fn.SiteBoxMIRROR.frame.searchUrl</b> property in 
-        <a href="jquery.SiteBoxMirror.js">ui/jquery.SiteBoxMirror.js</a>
-      </p>
-      <h4>mySql mode is custom</h4>
-      <p>
-        I am using my own mysql mode that predates the one now available.<br />
-        To use the standard mysql mode change the <b>$.fn.SiteBoxMIRROR.jsLib.mysql</b> property in 
-        <a href="jquery.SiteBoxMirror.js">ui/jquery.SiteBoxMirror.js</a> or pass the new name via config or at create time. (assuming dynamic setup) 
       </p>
       
       <h2>Dependencies</h2>
@@ -109,25 +82,31 @@
         <img src="demo_assets/folder_structure.png" alt="folder structure" style="width:207; height:360;float:left"/>
         <h4>Folder structure</h4>
         <p>
-          The plugin is designed to be hosted in a sub folder of the codemirror2 tree called ui/.
+          The plugin as shipped is configured to be hosted in a sub folder of the <b>codemirror2</b> tree called <b>SiteBoxMirror</b>.
         </p>
         <p> 
-          The default installation assumes that the codemirror folder is a child of the web root as in the diagram to the left.
+          The default installation assumes that the codemirror2 folder is called <b>/codeMirror2/</b>is a child of the 
+          web root as in the diagram to the left.
         </p>
         <h4>Step 1 - Get CodeMirror2</h4>
         <p>
           Get a copy of <a href="http://codemirror.net/">CodeMirror2</a> and install it into your site.
         </p>
         <p> 
-          I suggest using a folder name of <b>CodeMirror2</b> off your web root.
+          Install into folder <b>CodeMirror2</b> off your web root.
         </p>
         <h4>Step 2 - Add SiteBoxMirror to CodeMirror tree</h4>
         <p>
-          Download <a href="SiteBoxMirror.zip">SiteBoxMirror.zip</a> and add the ui folder contained therein to the CodeMirror2 tree.
+          SiteBoxMirror is hosted on Github at <a href="https://github.com/crookasacat/SiteBoxMirror">https://github.com/crookasacat/SiteBoxMirror</a> so 
+          you can clone the repo.<br />
+          Or you can  <a href="https://github.com/crookasacat/SiteBoxMirror/zipball/master">download a zip</a> of the latest version.
+          <p>
+            Install into folder <b>SiteBoxMirror</b> off your <b>CodeMirror2</b> folder.
+          </p>
         </p>
         <h4>Step 3 - Validate Install</h4>
         <p>
-          If all is well you should be able to view a copy of this page <b>/CodeMirror2/ui/index.html</b> on your website.
+          If all is well you should be able to view a copy of this page <b>/CodeMirror2/SiteBoxMirror/index.html</b> on your website.
         </p>
 
         <br style="clear:left" />
@@ -135,7 +114,7 @@
       
       <h3>Your page requires one of the following configurations</h3>
       
-      <h4>Minimum config</h4>
+      <h4>Minimum config (all css and js lazy loaded)</h4>
       <p>
         As a bare minimum your page must include jQuery jQueryUi and the plugin file <a href="/CodeMirror2/ui/jquery.SiteBoxMirror.js">jquery.SiteBoxMirror.js</a>  
       </p>
@@ -144,39 +123,48 @@
 &lt;script type="text/javascript" src="path_to_jquery.min.js"&gt;&lt;/script&gt;
 
 &lt;script type="text/javascript" src="path_to_jquery-ui.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="jquery.SiteBoxMirror.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="/CodeMirror2/SiteBoxMirror/jquery.SiteBoxMirror.js"&gt;&lt;/script&gt;
 </pre>
       
       <p>
-        In this configuration, the plugin will attempt to load all dependant scripts and css. It will work in most browsers but might be ugly!
+        In this configuration, the plugin will lazy load all dependant scripts and css. 
+        It will work in most browsers but might be ugly under some circumstances!
       </p>
-      <h4>Better config (development)</h4>
+      <h4>Better config (lazy load js only)</h4>
       <p>
-        The plugin will work better on most browsers if you also specify the <a href="/CodeMirror2/ui/ui.css">/CodeMirror2/ui/ui.css</a> file 
+        The plugin will work better on most browsers if you also specify the 
+        <a href="/CodeMirror2/SiteBoxMirror/ui.css">/CodeMirror2/SiteBoxMirror/ui.css</a> file rather
+        than letting the plugin lazyload it.
       </p>
     <pre class="docs_htm">
 &lt;link type="text/css" href="path_to_jquery-ui.css" rel="styleSheet"/&gt;
-&lt;link type="text/css" href="/CodeMirror2/ui/ui.css" rel="styleSheet"/&gt;
+&lt;link type="text/css" href="/CodeMirror2/SiteBoxMirror//ui.css" rel="styleSheet"/&gt;
 
 &lt;script type="text/javascript" src="path_to_jquery.min.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="path_to_jquery-ui.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="jquery.SiteBoxMirror.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="/CodeMirror2/SiteBoxMirror/jquery.SiteBoxMirror.js"&gt;&lt;/script&gt;
 </pre>
-      <p>In this configuration only the required javascripts are added to the document. This is the prefered configuration while developing the plugin.</p>
-      <h4>Best config (production)</h4>
+      <p>
+      In this configuration javascript dependencies are added to the document by the plugin. 
+      Using this option any changes to external scripts may require the browser cache to be cleared
+      before the changes are available to the plugin.</p>
+      <h4>Best config (scripts combined and minified)</h4>
       <p>
       Finally the best configuration is to use the standalone minified version 
       <a href="jquery.SiteBoxMirror.standalone.min.js">jquery.SiteBoxMirror.standalone.min.js</a>
       </p>
     <pre class="docs_htm">
 &lt;link type="text/css" href="path_to_jquery-ui.css" rel="styleSheet"/&gt;
-&lt;link type="text/css" href="/CodeMirror2/ui/ui.css" rel="styleSheet"/&gt;
+&lt;link type="text/css" href="/CodeMirror2/SiteBoxMirror/ui.css" rel="styleSheet"/&gt;
 
 &lt;script type="text/javascript" src="path_to_jquery.min.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="path_to_jquery-ui.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="jquery.SiteBoxMirror.standalone.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="/CodeMirror2/SiteBoxMirror/jquery.SiteBoxMirror.standalone.min.js"&gt;&lt;/script&gt;
 </pre>
-      <p>In this configuration all dependant scripts are included in the plug in so no lazy loading is required.</p>      
+      <p>In this configuration all dependant scripts are included in the plug in so no lazy loading is required, 
+      however you must remember to update the component scripts to reflect any external changes if you want to be
+      using the most up to date code from codemirror.
+      </p>      
       
       <h2>Usage</h2>
       
@@ -214,12 +202,24 @@ $("textarea.cmui").SiteBoxMIRROR("destroy");</pre>
       <p>Use this to set plugin defaults. Properties set this way affect all instances created after the setter is executed.
       <pre class="docs_js">
 $.fn.SiteBoxMIRROR.SetConfig({
+  // set codemirror defaults to use
   mirror : {
-    mode         : "text/html",
-    tabSize      : 2, 
-    lineNumbers  : true
+    mode           : "text/html",
+    tabSize        : 2, 
+    lineNumbers    : true
+  },
+  // set sql mode to standard parser
+  jsLib : {
+    mysql          : { root : "cm", path : "mode/mysql/mysql.js" }  //cm is alias for codeMirrorRoot in url objects
+  },
+  // set search url, pluginRoot and codeMirrorRoot to alternate values
+  configInfo : {
+    codeMirrorRoot : "/cm/",
+    pluginRoot       "/cm/ui/"
+    searchUrl      : { root : "sb", path : "search.php" }  //sb is alias for pluginRoot in url objects
   }
-});</pre>
+});
+</pre>
 
       <h4>$.fn.SiteBoxMIRROR.GetConfig(format)</h4>
       <p>Use this to get plugin defaults. The config object is returned as an object or JSON depending on format.
@@ -227,7 +227,7 @@ $.fn.SiteBoxMIRROR.SetConfig({
 $("#config").text($.fn.SiteBoxMIRROR.GetConfig("json"));
 
 $("#config").text($.fn.SiteBoxMIRROR.GetConfig("object"));</pre>
-      <h4>jquery.SiteBoxMirror.standalone.min.js Config (json)</h4>
+      <h4>jquery.SiteBoxMirror.js Standard Config (json)</h4>
       <pre id="config"></pre>
       
       <h2>Compression helper</h2>      
@@ -237,8 +237,38 @@ $("#config").text($.fn.SiteBoxMIRROR.GetConfig("object"));</pre>
         This will NOT work on your server, unless you are using siteBox, but it may help with your own solution.<br />
         see <a href="http://yuicompressor.codeplex.com/">http://yuicompressor.codeplex.com/</a>
       </p>
-    </div>
     
+      <h2>Known Issues</h2>
+      <h4>Search not case sensitive if query starts with lowercase</h4>
+      <p>
+        My rewritten search extention <a href="search.js">search.js</a> relies upon the original 
+        <a href="../lib/util/searchcursor.js">searchcursor.js</a> code. This code finds "Search" with a query of "search" but not "seaRch".
+      </p>
+      <h4>Resize is clunky!</h4>
+      <p>
+        The resizing of the editor scroll area has taxed me. Use a max-width on the element that contains the editors and it seems to work!<br />
+        Consider this a work in progress!
+      </p>
+      <h4>Non IIS hosts need to change the extention of the dialoug url</h4>
+      <p>
+        The plugin loads its search dialoug via an ajax post. On my IIS server the extension must be a configured script type so I have used .aspx.
+      </p>
+      <p>
+        Non IIS users can rename <a href="search.aspx">search.aspx</a> to somthing more appropriate and supply 
+        the new name via config. This option will work with jquery.SiteBoxMirror.js and jquery.SiteBoxMirror.standalone.min.js
+        because the dialoug itself is not contained in the minimized package, but loaded via ajax at config time.<br />
+        Alternatively you can edit the property <b>$.fn.SiteBoxMIRROR.configInfo.searchUrl</b> property in 
+        <a href="jquery.SiteBoxMirror.js">jquery.SiteBoxMirror.js</a>
+      </p>
+      <h4>mySql mode is custom</h4>
+      <p>
+        I am using my own mysql mode that predates the one now available.<br />
+        To use the standard mysql mode use the config option or change the <b>$.fn.SiteBoxMIRROR.jsLib.mysql</b> property in 
+        <a href="jquery.SiteBoxMirror.js">jquery.SiteBoxMirror.js</a>. NOTE You can only use alternative modes when
+         using the dynamic mode (jquery.SiteBoxMirror.js) If you want to use the standard mysql mode with
+         jquery.SiteBoxMirror.standalone.min.js you will have to replace the mysql mode in the script itself.
+      </p>
+    </div>
     <script type="text/javascript">
         $("pre.docs_htm").SiteBoxMIRROR("highlight", { mode: "text/html" });
         $("pre.docs_js").SiteBoxMIRROR("highlight", { mode: "text/javascript" });
