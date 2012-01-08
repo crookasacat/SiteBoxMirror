@@ -34,7 +34,7 @@
       <h2>Overview</h2>  
       <p>
         As part of a wider project that entails online editing of html, css, javascript and mysql I 
-        have developed this jQuey plugin to enable easy instalation of the codemirror 2 editor in my pages.<br />
+        have developed this jQuey plugin to enable easy installation of the codemirror 2 editor in my pages.<br />
         It's aim is to provide a lightweight frame around codemirror and make deployment quick and easy. 
       </p>
       <p>
@@ -116,7 +116,7 @@
       
       <h4>Minimum config (all css and js lazy loaded)</h4>
       <p>
-        As a bare minimum your page must include jQuery jQueryUi and the plugin file <a href="/CodeMirror2/ui/jquery.SiteBoxMirror.js">jquery.SiteBoxMirror.js</a>  
+        As a bare minimum your page must include jQuery jQueryUi and the plugin <a href="/CodeMirror2/SiteBoxMirror/jquery.SiteBoxMirror.js">jquery.SiteBoxMirror.js</a>  
       </p>
       <pre class="docs_htm">
 &lt;link type="text/css" href="path_to_jquery-ui.css" rel="styleSheet"/&gt;
@@ -161,10 +161,40 @@
 &lt;script type="text/javascript" src="path_to_jquery-ui.min.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="/CodeMirror2/SiteBoxMirror/jquery.SiteBoxMirror.standalone.min.js"&gt;&lt;/script&gt;
 </pre>
-      <p>In this configuration all dependant scripts are included in the plug in so no lazy loading is required, 
-      however you must remember to update the component scripts to reflect any external changes if you want to be
-      using the most up to date code from codemirror.
-      </p>      
+      <p>
+        In this configuration all dependant scripts are included in the plug in so no lazy loading is required, 
+        however you must remember to update the component scripts to reflect any external changes if you want to be
+        using the most up to date code from codemirror.
+      </p> 
+      
+      <h4>Including dependent scripts manually and using additional modes</h4>
+      <p>
+        The plugin will not lazy load any scripts if it detects codemirror as it initializes, therefore if you wish to load the scripts
+        from a tag in the head you are free to do so but you must load all the required scripts for the plugin to work.
+      </p>
+      <pre class="docs_htm">
+&lt;link type="text/css" href="path_to_jquery-ui.css" rel="styleSheet"/&gt;
+
+&lt;link type="text/css" href="/CodeMirror2/SiteBoxMirror/ui.css" rel="styleSheet"/&gt;
+
+&lt;script type="text/javascript" src="path_to_jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="path_to_jquery-ui.min.js"&gt;&lt;/script&gt;
+      
+&lt;script type="text/javascript" src="/CodeMirror2/SiteBoxMirror/jquery.SiteBoxMirror.js"&gt;&lt;/script&gt;,
+&lt;script type="text/javascript" src="/CodeMirror2/lib/codemirror.js"&gt;&lt;/script&gt;,
+&lt;script type="text/javascript" src="/CodeMirror2/lib/util/searchcursor.js"&gt;&lt;/script&gt;,
+&lt;script type="text/javascript" src="/CodeMirror2/SiteBoxMirror/search.js"&gt;&lt;/script&gt;,
+&lt;script type="text/javascript" src="/CodeMirror2/lib/util/runmode.js"&gt;&lt;/script&gt;,
+&lt;script type="text/javascript" src="/CodeMirror2/mode/css/css.js"&gt;&lt;/script&gt;,
+&lt;script type="text/javascript" src="/CodeMirror2/mode/javascript/javascript.js"&gt;&lt;/script&gt;,
+&lt;script type="text/javascript" src="/CodeMirror2/mode/xml/xml.js"&gt;&lt;/script&gt;,
+&lt;script type="text/javascript" src="/CodeMirror2/mode/htmlmixed/htmlmixed.js"&gt;&lt;/script&gt;,
+&lt;script type="text/javascript" src="/CodeMirror2/mode/xmlpure/xmlpure.js"&gt;&lt;/script&gt;,
+&lt;script type="text/javascript" src="/CodeMirror2/SiteBoxMirror/mysql/mysql.js"&gt;&lt;/script&gt;      
+</pre>
+      <p>
+        Additional parser modes can be loaded via a script tag and used via the mode option when creating an editor.
+      </p>     
       
       <h2>Usage</h2>
       
@@ -241,7 +271,7 @@ $("#config").text($.fn.SiteBoxMIRROR.GetConfig("object"));</pre>
       <h2>Known Issues</h2>
       <h4>Search not case sensitive if query starts with lowercase</h4>
       <p>
-        My rewritten search extention <a href="search.js">search.js</a> relies upon the original 
+        My rewritten search extension <a href="search.js">search.js</a> relies upon the original 
         <a href="../lib/util/searchcursor.js">searchcursor.js</a> code. This code finds "Search" with a query of "search" but not "seaRch".
       </p>
       <h4>Resize is clunky!</h4>
@@ -249,14 +279,14 @@ $("#config").text($.fn.SiteBoxMIRROR.GetConfig("object"));</pre>
         The resizing of the editor scroll area has taxed me. Use a max-width on the element that contains the editors and it seems to work!<br />
         Consider this a work in progress!
       </p>
-      <h4>Non IIS hosts need to change the extention of the dialoug url</h4>
+      <h4>Non IIS hosts need to change the extension of the search dialog url</h4>
       <p>
-        The plugin loads its search dialoug via an ajax post. On my IIS server the extension must be a configured script type so I have used .aspx.
+        The plugin loads its search dialogue via an ajax post. On my IIS server the extension must be a configured script type so I have used .aspx.
       </p>
       <p>
-        Non IIS users can rename <a href="search.aspx">search.aspx</a> to somthing more appropriate and supply 
+        Non IIS users can rename <a href="search.aspx">search.aspx</a> to something more appropriate and supply 
         the new name via config. This option will work with jquery.SiteBoxMirror.js and jquery.SiteBoxMirror.standalone.min.js
-        because the dialoug itself is not contained in the minimized package, but loaded via ajax at config time.<br />
+        because the search dialog is loaded via ajax by the plugin.<br />
         Alternatively you can edit the property <b>$.fn.SiteBoxMIRROR.configInfo.searchUrl</b> property in 
         <a href="jquery.SiteBoxMirror.js">jquery.SiteBoxMirror.js</a>
       </p>
