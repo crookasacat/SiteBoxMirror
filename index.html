@@ -9,11 +9,11 @@
     <meta name="keywords" content="CodeMirror CodeMirror2 jQuery plugin" />
     
     <!-- css -->    
-    <link type="text/css" rel="styleSheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/overcast/jquery-ui.css" />    
+    <link type="text/css" rel="styleSheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/overcast/jquery-ui.css"></link>    
     
     <link type="text/css" rel="styleSheet" href="demo_assets/cmxformTemplate.css"  />
     <link type="text/css" rel="styleSheet" href="demo_assets/cmxform.css" /> 
-    <link type="text/css" rel="styleSheet" href="demo_assets/demo_style.css" >
+    <link type="text/css" rel="styleSheet" href="demo_assets/demo_style.css" />
     
     <link type="text/css" rel="stylesheet" href="/CodeMirror2/SiteBoxMirror/ui.css" /> 
     
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" ></script>
     <script type="text/javascript" src="demo_assets/cmxforms.js" ></script>
     
-    <script src="jquery.SiteBoxMirror.js"></script >
+    <script type="text/javascript" src="jquery.SiteBoxMirror.js"></script >
     
   </head>
   <body>
@@ -100,9 +100,9 @@
           SiteBoxMirror is hosted on Github at <a href="https://github.com/crookasacat/SiteBoxMirror">https://github.com/crookasacat/SiteBoxMirror</a> so 
           you can clone the repo.<br />
           Or you can  <a href="https://github.com/crookasacat/SiteBoxMirror/zipball/master">download a zip</a> of the latest version.
-          <p>
-            Install into folder <b>SiteBoxMirror</b> off your <b>CodeMirror2</b> folder.
-          </p>
+        </p>
+        <p>
+          Install into folder <b>SiteBoxMirror</b> off your <b>CodeMirror2</b> folder.
         </p>
         <h4>Step 3 - Validate Install</h4>
         <p>
@@ -238,7 +238,9 @@ $("textarea.cmui").SiteBoxMIRROR("destroy");</pre>
       </p>
       
       <h4>$.fn.SiteBoxMIRROR.SetConfig()</h4>
-      <p>Use this to set plugin defaults. Properties set this way affect all instances created after the setter is executed.
+      <p>
+        Use this to set plugin defaults. Properties set this way affect all instances created after the setter is executed.
+      </p>
       <pre class="docs_js">
 $.fn.SiteBoxMIRROR.SetConfig({
   // set codemirror defaults to use
@@ -261,7 +263,9 @@ $.fn.SiteBoxMIRROR.SetConfig({
 </pre>
 
       <h4>$.fn.SiteBoxMIRROR.GetConfig(format)</h4>
-      <p>Use this to get plugin defaults. The config object is returned as an object or JSON depending on format.
+      <p>
+        Use this to get plugin defaults. The config object is returned as an object or JSON depending on format.
+      </p>
       <pre class="docs_js">
 $("#config").text($.fn.SiteBoxMIRROR.GetConfig("json"));
 
@@ -494,6 +498,11 @@ BEGIN
   END MAIN_BLOCK;
 END $$
 DELIMITER;</pre>
+
+<p style="text-align:center">
+  <a href="http://validator.w3.org/check?uri=referer"><img
+    src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" /></a>
+</p>
     
   </body>
 </html>
