@@ -240,7 +240,6 @@ requires
     
     $(objToConfig).data("siteBoxMirror", {editor : ed, frame : $frame});
     $frame.data("siteBoxMirror", { src : $(objToConfig) });
-    //ed.refresh();
     setScrollSize($frame, "standard", ed);
 
   }
