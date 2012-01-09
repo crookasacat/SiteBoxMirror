@@ -107,15 +107,23 @@ requires
       loadLibs();
       return this.each(function(i, o) {
         //validate that we are a pre
+        var $objToFormat;
         var tagName = o.tagName;
         if(tagName.toLowerCase() != "pre"){
-          debug($(o).attr("id") + "(" + tagName + ") is not a pre");
-          return false;
+          $objToFormat = $("<pre></pre>");
+          $objToFormat.html($(o).html());
+          $(o).html("");
+          $(o).append($objToFormat);
+          //debug($(o).attr("id") + "(" + tagName + ") is not a pre");
+          //return false;
         }
-        debug("highlight pre: " + $(o).attr("id"));
-        $(o).addClass("cm-s-default");
-        $(o).addClass("siteBoxMirror-highlight");
-        CodeMirror.runMode($(o).text(), opts.mode, o);
+        else{
+          $objToFormat = $(o);
+        }
+        debug("highlight pre");
+        $objToFormat.addClass("cm-s-default");
+        $objToFormat.addClass("siteBoxMirror-highlight");
+        CodeMirror.runMode($.trim($objToFormat.text()), opts.mode, $objToFormat.get(0));
       });
     }// end highlight
 
