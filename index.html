@@ -200,8 +200,18 @@
       
       <h4>Convert a &lt;textarea&gt; into an editor with ui frame</h4>
       <pre class="docs_js">
-$("#p_code1").SiteBoxMIRROR({ mode: "text/html"});</pre>      
-      
+$("#p_code1").SiteBoxMIRROR({ mode: "text/html"});</pre>
+      <p>
+        This happens :
+      </p>
+      <ul>
+        <li>The text area ( p_code1 ) will be replaced with a wrapped codeMirror using the options specified.</li>
+        <li>If the textarea ( p_code1 ) has an associated label ( using attribute <b>for</b> on label ) the text of the label is used as a title and the label is hidden.</li>
+        <li>The width of editor is constrained by the flow of the document.</li>
+        <li>The height of the codemirror itself will match the height of the textarea it replaces.</li>
+        <li>NOTE The wrapped mirror block is display:block by default - adjust via css.</li>
+        
+      </ul>
       <h4>Highlight a &lt;pre&gt;</h4>
       <pre class="docs_js">
 $("#mysql-src").SiteBoxMIRROR("highlight", { mode: "text/x-mysql" });</pre>
@@ -269,10 +279,9 @@ $("#config").text($.fn.SiteBoxMIRROR.GetConfig("object"));</pre>
       </p>
     
       <h2>Known Issues</h2>
-      <h4>Search not case sensitive if query starts with lowercase</h4>
+      <h4>Search case-insensitive if query all lowercase</h4>
       <p>
-        My rewritten search extension <a href="search.js">search.js</a> relies upon the original 
-        <a href="../lib/util/searchcursor.js">searchcursor.js</a> code. This code finds "Search" with a query of "search" but not "seaRch".
+        Search is case-insensitive when query is all-lowercase, and case-sensitive if it contains any uppercase characters.
       </p>
       
       <h4>Non IIS hosts need to change the extension of the search dialog url</h4>
